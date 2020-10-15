@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 
 
 
-
 def init_variables():
     """
         Init model Variables (weights, bias)
@@ -12,6 +11,8 @@ def init_variables():
     bias = 0
     
     return weights, bias
+
+
 
 def get_dataset():
     """
@@ -22,10 +23,13 @@ def get_dataset():
     row_per_class = 100
     #Generate rows
     sick = np.random.randn(row_per_class, 2) + np.array([-2, -2])
-    healthy = np.random.randn(row_per_class, 2) + np.array([2, 2])
+    sick2 = np.random.randn(row_per_class, 2) + np.array([2, 2])
 
-    features = np.vstack([sick, healthy])
-    targets = np.concatenate((np.zeros(row_per_class), np.zeros(row_per_class) + 1))
+    healthy = np.random.randn(row_per_class, 2) + np.array([-2, 2])
+    healthy2 = np.random.randn(row_per_class, 2) + np.array([2, -2])
+
+    features = np.vstack([sick, sick2, healthy, healthy2])
+    targets = np.concatenate((np.zeros(row_per_class * 2), np.zeros(row_per_class * 2) + 1))
 
     return features, targets
     """
@@ -87,8 +91,8 @@ def train(features, targets, weights, bias):
     print( "Accuracy", np.mean(predictions == targets))
 
     #plot points
-    #plt.scatter(features[:, 0], features[:, 1], s=40, c= targets, cmap = plt.cm.Spectral)
-    #plt.show()
+    plt.scatter(features[:, 0], features[:, 1], s=40, c= targets, cmap = plt.cm.Spectral)
+    plt.show()
 
     for epoch in range(epochs):
         if epoch % 10 == 0:
